@@ -2,10 +2,10 @@
 import { PencilSimpleLine, Trash, Plus } from "@phosphor-icons/react/dist/ssr" 
 import * as Dialog from "@radix-ui/react-dialog";
 import { CreateDeviceModal } from "../CreateDeviceModal";
-import { IDevice } from "@/lib/db";
+
 
 interface DevicesProps {
-  devices: IDevice[];
+  devices: any;
 }
 
 export function Devices({ devices }: DevicesProps) {

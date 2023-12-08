@@ -1,12 +1,7 @@
 import { Devices } from "@/components/Devices";
 import { Sidebar } from "@/components/Sidebar";
-import { IDevice } from "@/lib/db";
 
-interface HomeProps {
-  devices: IDevice[];
-}
-
-export default function Home({ devices }: HomeProps) {
+export default function Home({ devices }: any) {
   return (
     <div className="w-screen h-screen bg-zinc-950 p-8 flex gap-8">
       <Sidebar />
