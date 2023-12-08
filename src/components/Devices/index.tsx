@@ -1,30 +1,19 @@
-"use client"
-import { PencilSimpleLine, Trash, Plus } from "@phosphor-icons/react/dist/ssr" 
-import * as Dialog from "@radix-ui/react-dialog";
-import { CreateDeviceModal } from "../CreateDeviceModal";
+import { getDevices } from "@/actions/get-devices";
+import { DialogComponent } from "../DialogComponent";
+import { DeleteDevice } from "../DeleteDevice";
+import { UpdateDevice } from "../UpdateDevice";
 
+export async function Devices() {
+  const devices = await getDevices();
 
-interface DevicesProps {
-  devices: any;
-}
-
-export function Devices({ devices }: DevicesProps) {
-  console.log(devices)
   return (
     <section className="flex-1 flex flex-col gap-8 rounded-lg bg-zinc-900 p-4 overflow-hidden">
       <h1 className="text-4xl font-bold relative">
         Dispositivos
         <span className="absolute w-12 h-[2px] bottom-[-10px] left-0 rounded-2xl bg-green-500" />
       </h1>
-      <Dialog.Root>
-        <Dialog.Trigger asChild>
-          <button className="w-fit bg-green-500 px-6 py-2 rounded-lg flex items-center gap-2 transition-all hover:bg-green-700">
-            <Plus />
-            Novo Dispositivo
-          </button>
-        </Dialog.Trigger>
-        <CreateDeviceModal />
-      </Dialog.Root>
+
+      <DialogComponent />
 
       <div className="overflow-auto rounded-lg">
         <table className="w-full bg-zinc-800">
@@ -53,9 +42,9 @@ export function Devices({ devices }: DevicesProps) {
             </tr>
           </thead>
           <tbody>
-            {/* {devices.map((device: IDevice) => (
-              <>
-                <tr className="whitespace-nowrap">
+            {devices &&
+              devices.map((device) => (
+                <tr key={device.id} className="whitespace-nowrap">
                   <td className="p-4">{device.name}</td>
                   <td className="p-4">{device.place}</td>
                   <td className="p-4">{device.owner}</td>
@@ -73,18 +62,13 @@ export function Devices({ devices }: DevicesProps) {
                   <td className="p-4">{device.status}</td>
                   <td className="p-4">{device.description}</td>
                   <td className="p-4 text-center">
-                    <button className="bg-zinc-600 rounded-lg w-full flex justify-center p-2 transition-all hover:bg-zinc-700">
-                      <PencilSimpleLine />
-                    </button>
+                    <UpdateDevice id={device.id} />
                   </td>
                   <td className="p-4 text-center">
-                    <button className="bg-red-700 rounded-lg w-full flex justify-center p-2 transition-all hover:bg-red-900">
-                      <Trash />
-                    </button>
+                    <DeleteDevice id={device.id} />
                   </td>
                 </tr>
-              </>
-            ))} */}
+              ))}
           </tbody>
         </table>
       </div>
