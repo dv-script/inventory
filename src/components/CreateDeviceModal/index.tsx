@@ -4,16 +4,16 @@ import { X } from "@phosphor-icons/react/dist/ssr";
 import { createDevice } from "@/actions/create-device";
 import { useFormState } from "react-dom";
 
-
 export function CreateDeviceModal() {
-  // const initialState = { message: null, errors: {} }
-  // const [state, dispatch] = useFormState(createDevice, initialState);
+  const initialState = { message: null, errors: {} }
+  // @ts-ignore
+  const [state, dispatch] = useFormState(createDevice, initialState);
 
   return (
     <Dialog.Portal>
       <Dialog.Overlay className="bg-blackA6 data-[state=open]:animate-overlayShow fixed inset-0" />
       <Dialog.Content className="overflow-auto data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[500px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
-        <form>
+        <form action={dispatch}>
           <Dialog.Title className="text-mauve12 m-0 text-[17px] font-medium">
             Adicionar novo dispositivo
           </Dialog.Title>
@@ -29,9 +29,9 @@ export function CreateDeviceModal() {
               placeholder="Nome do dispositivo"
               name="name"
             />
-            {/* {state.errors?.name && state.errors.name.map((error: string) => (
+            {state.errors?.name && state.errors.name.map((error: string) => (
               <span key={error} className="text-red-500">{error}</span>
-            ))} */}
+            ))}
           </fieldset>
 
           <fieldset className="mb-[15px] flex items-center gap-5">
@@ -43,9 +43,9 @@ export function CreateDeviceModal() {
               placeholder="Local do dispositivo"
               name="place"
             />
-            {/* {errors.place && (
-              <span className="text-red-500">{errors.place.message}</span>
-            )} */}
+            {state.errors?.place && state.errors.place.map((error: string) => (
+              <span key={error} className="text-red-500">{error}</span>
+            ))}
           </fieldset>
 
           <fieldset className="mb-[15px] flex items-center gap-5">
@@ -57,9 +57,9 @@ export function CreateDeviceModal() {
               placeholder="Proprietário do dispositivo"
               name="owner"
             />
-            {/* {errors.owner && (
-              <span className="text-red-500">{errors.owner.message}</span>
-            )} */}
+            {state.errors?.owner && state.errors.owner.map((error: string) => (
+              <span key={error} className="text-red-500">{error}</span>
+            ))}
           </fieldset>
 
           <fieldset className="mb-[15px] flex items-center gap-5">
@@ -71,9 +71,9 @@ export function CreateDeviceModal() {
               placeholder="Email do Proprietário"
               name="email"
             />
-            {/* {errors.email && (
-              <span className="text-red-500">{errors.email.message}</span>
-            )} */}
+            {state.errors?.owner && state.errors.owner.map((error: string) => (
+              <span key={error} className="text-red-500">{error}</span>
+            ))}
           </fieldset>
 
           <fieldset className="mb-[15px] flex items-center gap-5">
@@ -85,9 +85,9 @@ export function CreateDeviceModal() {
               placeholder="Marca do dispositivo"
               name="brand"
             />
-            {/* {errors.brand && (
-              <span className="text-red-500">{errors.brand.message}</span>
-            )} */}
+            {state.errors?.brand && state.errors.brand.map((error: string) => (
+              <span key={error} className="text-red-500">{error}</span>
+            ))}
           </fieldset>
 
           <fieldset className="mb-[15px] flex items-center gap-5">
@@ -99,9 +99,9 @@ export function CreateDeviceModal() {
               placeholder="Carregador do dispositivo"
               name="charger"
             />
-            {/* {errors.charger && (
-              <span className="text-red-500">{errors.charger.message}</span>
-            )} */}
+            {state.errors?.charger && state.errors.charger.map((error: string) => (
+              <span key={error} className="text-red-500">{error}</span>
+            ))}
           </fieldset>
 
           <fieldset className="mb-[15px] flex items-center gap-5">
@@ -113,9 +113,9 @@ export function CreateDeviceModal() {
               placeholder="Modelo do dispositivo"
               name="model"
             />
-            {/* {errors.model && (
-              <span className="text-red-500">{errors.model.message}</span>
-            )} */}
+            {state.errors?.model && state.errors.model.map((error: string) => (
+              <span key={error} className="text-red-500">{error}</span>
+            ))}
           </fieldset>
 
           <fieldset className="mb-[15px] flex items-center gap-5">
@@ -127,9 +127,9 @@ export function CreateDeviceModal() {
               placeholder="Quantidade de RAM do dispositivo"
               name="ramQuantity"
             />
-            {/* {errors.ramQuantity && (
-              <span className="text-red-500">{errors.ramQuantity.message}</span>
-            )} */}
+            {state.errors?.ramQuantity && state.errors.ramQuantity.map((error: string) => (
+              <span key={error} className="text-red-500">{error}</span>
+            ))}
           </fieldset>
 
           <fieldset className="mb-[15px] flex items-center gap-5">
@@ -141,9 +141,9 @@ export function CreateDeviceModal() {
               placeholder="SSD do dispositivo"
               name="storage"
             />
-            {/* {errors.storage && (
-              <span className="text-red-500">{errors.storage.message}</span>
-            )} */}
+            {state.errors?.storage && state.errors.storage.map((error: string) => (
+              <span key={error} className="text-red-500">{error}</span>
+            ))}
           </fieldset>
 
           <fieldset className="mb-[15px] flex items-center gap-5">
@@ -155,9 +155,9 @@ export function CreateDeviceModal() {
               placeholder="Processador do dispositivo"
               name="processor"
             />
-            {/* {errors.processor && (
-              <span className="text-red-500">{errors.processor.message}</span>
-            )} */}
+            {state.errors?.processor && state.errors.processor.map((error: string) => (
+              <span key={error} className="text-red-500">{error}</span>
+            ))}
           </fieldset>
 
           <fieldset className="mb-[15px] flex items-center gap-5">
@@ -169,11 +169,9 @@ export function CreateDeviceModal() {
               placeholder="Sistema Operacional do dispositivo"
               name="operationalSystem"
             />
-            {/* {errors.operationalSystem && (
-              <span className="text-red-500">
-                {errors.operationalSystem.message}
-              </span>
-            )} */}
+            {state.errors?.operationalSystem && state.errors.operationalSystem.map((error: string) => (
+              <span key={error} className="text-red-500">{error}</span>
+            ))}
           </fieldset>
 
           <fieldset className="mb-[15px] flex items-center gap-5">
@@ -185,9 +183,9 @@ export function CreateDeviceModal() {
               placeholder="Garantia do dispositivo"
               name="guarantee"
             />
-            {/* {errors.guarantee && (
-              <span className="text-red-500">{errors.guarantee.message}</span>
-            )} */}
+            {state.errors?.guarantee && state.errors.guarantee.map((error: string) => (
+              <span key={error} className="text-red-500">{error}</span>
+            ))}
           </fieldset>
 
           <fieldset className="mb-[15px] flex items-center gap-5">
@@ -199,9 +197,9 @@ export function CreateDeviceModal() {
               placeholder="Service TAG do dispositivo"
               name="serviceTag"
             />
-            {/* {errors.serviceTag && (
-              <span className="text-red-500">{errors.serviceTag.message}</span>
-            )} */}
+            {state.errors?.serviceTag && state.errors.serviceTag.map((error: string) => (
+              <span key={error} className="text-red-500">{error}</span>
+            ))}
           </fieldset>
 
           <fieldset className="mb-[15px] flex items-center gap-5">
@@ -213,9 +211,9 @@ export function CreateDeviceModal() {
               placeholder="Patrimônio do dispositivo"
               name="heritage"
             />
-            {/* {errors.heritage && (
-              <span className="text-red-500">{errors.heritage.message}</span>
-            )} */}
+            {state.errors?.heritage && state.errors.heritage.map((error: string) => (
+              <span key={error} className="text-red-500">{error}</span>
+            ))}
           </fieldset>
 
           <fieldset className="mb-[15px] flex items-center gap-5">
@@ -227,9 +225,9 @@ export function CreateDeviceModal() {
               placeholder="Status do dispositivo"
               name="status"
             />
-            {/* {errors.status && (
-              <span className="text-red-500">{errors.status.message}</span>
-            )} */}
+            {state.errors?.status && state.errors.status.map((error: string) => (
+              <span key={error} className="text-red-500">{error}</span>
+            ))}
           </fieldset>
 
           <fieldset className="mb-[15px] flex items-center gap-5">
@@ -241,9 +239,9 @@ export function CreateDeviceModal() {
               placeholder="Descrição adicional"
               name="description"
             />
-            {/* {errors.description && (
-              <span className="text-red-500">{errors.description.message}</span>
-            )} */}
+            {state.errors?.description && state.errors.description.map((error: string) => (
+              <span key={error} className="text-red-500">{error}</span>
+            ))}
           </fieldset>
           <div className="mt-[25px] flex justify-end">
             <button

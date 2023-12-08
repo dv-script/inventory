@@ -1,7 +1,8 @@
 "use server";
 import { z } from "zod";
-import { unstable_noStore } from "next/cache";
-import { db } from "@/lib/db";
+import { revalidatePath, unstable_noStore } from "next/cache";
+import { sql } from "@vercel/postgres";
+import { redirect } from "next/navigation";
 
 const DeviceSchema = z.object({
   id: z.string(),
@@ -28,23 +29,8 @@ const CreateDevice = DeviceSchema.omit({ id: true });
 export type State = {
   errors?: {
     name?: string[];
-    place?: string[];
-    owner?: string[];
-    email?: string[];
-    brand?: string[];
-    charger?: string[];
-    model?: string[];
-    ramQuantity?: string[];
-    storage?: string[];
-    processor?: string[];
-    operationalSystem?: string[];
-    guarantee?: string[];
-    serviceTag?: string[];
-    heritage?: string[];
-    status?: string[];
-    description?: string[];
   };
-  message?: string | null; 
+  message?: string | null;
 };
 
 export async function createDevice(prevState: State, formData: FormData) {
@@ -70,6 +56,8 @@ export async function createDevice(prevState: State, formData: FormData) {
   });
 
   if (!validatedFields.success) {
+    console.log(validatedFields.error.flatten().fieldErrors);
+
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Preencha os campos corretamente",
@@ -96,29 +84,45 @@ export async function createDevice(prevState: State, formData: FormData) {
   } = validatedFields.data;
 
   try {
-    await db.inventory.create({
-      data: {
-        name,
-        brand,
-        charger,
-        description,
-        email,
-        guarantee,
-        heritage,
-        model,
-        operationalSystem,
-        owner,
-        place,
-        processor,
-        ramQuantity,
-        serviceTag,
-        status,
-        storage,
-      },
-    })
+    await sql`INSERT INTO devices (
+      name,
+      brand,
+      charger,
+      description,
+      email,
+      guarantee,
+      heritage,
+      model,
+      operationalSystem,
+      owner,
+      place,
+      processor,
+      ramQuantity,
+      serviceTag,
+      status,
+      storage
+    ) VALUES (
+      ${name},
+      ${brand},
+      ${charger},
+      ${description},
+      ${email},
+      ${guarantee},
+      ${heritage},
+      ${model},
+      ${operationalSystem},
+      ${owner},
+      ${place},
+      ${processor},
+      ${ramQuantity},
+      ${serviceTag},
+      ${status},
+      ${storage}
+    )`;
   } catch (err) {
     console.log(err);
-    throw new Error("Erro ao criar o dispositivo"); 
   }
-}
 
+  revalidatePath("/");
+  redirect("/");
+}
